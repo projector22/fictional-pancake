@@ -5,13 +5,23 @@ WORKING_PATH=$(pwd)
 MASTER="master"
 DEV="dev"
 
-while getopts ":m:d:" opt; do
-  echo $OPTARG
-  case $opt in
-    m) MASTER=$OPTARG;;
-    d) DEV=$OPTARG;;
-    *) echo "Invalid option: -$OPTARG" >&2; exit 1;;
-  esac
+# Loop through the arguments
+for arg in "$@"; do
+    case $arg in
+        --master=*)
+            MASTER="${arg#*=}"
+            shift
+        ;;
+        --dev=*)
+            DEV="${arg#*=}"
+            shift
+        ;;
+        *)
+        # Print an error message and exit if an invalid argument is passed
+            echo "Invalid argument: $arg" >&2
+            exit 1
+        ;;
+    esac
 done
 
 printf "Rebasing $DEV to $MASTER in the following directory: %s\n" "$WORKING_PATH"
