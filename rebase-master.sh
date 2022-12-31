@@ -26,8 +26,8 @@ done
 
 printf "Rebasing $DEV to $MASTER in the following directory: %s\n" "$WORKING_PATH"
 
-git -C "$WORKING_PATH" checkout $MASTER || exit 1
+git -C "$WORKING_PATH" checkout "$MASTER" || exit 1
 git -C "$WORKING_PATH" pull || exit 1
-git -C "$WORKING_PATH" checkout $DEV || exit 1
-git -C "$WORKING_PATH" rebase $MASTER || exit 1
+git -C "$WORKING_PATH" checkout "$DEV" || exit 1
+git -C "$WORKING_PATH" rebase "$MASTER" || exit 1
 git -C "$WORKING_PATH" push || exit 1
